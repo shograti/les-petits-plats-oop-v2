@@ -55,8 +55,8 @@ function filterRecipes() {
       );
     }
     if (appliancesFilter.length > 0) {
-      applianceMatch = appliancesFilter.some(
-        (tag) => recipe.appliance.toLowerCase() === tag.name
+      applianceMatch = appliancesFilter.every((tag) =>
+        recipe.appliance.toLowerCase().includes(tag.name)
       );
     }
     if (ustensilsFilter.length > 0) {

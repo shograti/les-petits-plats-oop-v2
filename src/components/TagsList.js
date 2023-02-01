@@ -14,30 +14,36 @@ class TagsList {
   }
 
   render() {
-    const tagsList = document.querySelector('.tags-list');
-    if (this.tags.length > 0) {
-      removeChildren(tagsList);
-      this.tags.forEach((tag) => {
-        const tagItem = document.createElement('div');
-        tagItem.addEventListener('click', () => {
-          if (tag.type === 'ingredient') {
-            ingredientsList.addIngredient(tag.name);
-          } else if (tag.type === 'appliance') {
-            appliancesList.addAppliance(tag.name);
-          } else if (tag.type === 'ustensil') {
-            ustensilsList.addUstensil(tag.name);
-          }
-          this.removeTag(tag.name);
-          recipesList.updateRecipes();
-          ingredientsList.updateIngredients();
-          appliancesList.updateAppliances();
-        });
-        tagItem.classList.add('tag-item');
-        tagItem.textContent = tag.name;
-        tagsList.appendChild(tagItem);
+    const tagsList = document.querySelector('.tags_list');
+    removeChildren(tagsList);
+    this.tags.forEach((tag) => {
+      const tagContainer = document.createElement('div');
+      const tagItem = document.createElement('p');
+      const tagCloseIcon = document.createElement('img');
+      tagCloseIcon.setAttribute('src', './assets/close.png');
+      tagContainer.classList.add('tag_container');
+
+      tagCloseIcon.addEventListener('click', () => {
+        this.removeTag(tag.name);
+        recipesList.updateRecipes();
+        ingredientsList.updateIngredients();
+        appliancesList.updateAppliances();
+        ustensilsList.updateUstensils();
       });
-    } else {
-      removeChildren(tagsList);
-    }
+
+      if (tag.type === 'ingredient') {
+        tagContainer.classList.add('tag_blue');
+      }
+      if (tag.type === 'appliance') {
+        tagContainer.classList.add('tag_orange');
+      }
+      if (tag.type === 'ustensil') {
+        tagContainer.classList.add('tag_green');
+      }
+      tagItem.textContent = tag.name;
+      tagContainer.appendChild(tagItem);
+      tagContainer.appendChild(tagCloseIcon);
+      tagsList.appendChild(tagContainer);
+    });
   }
 }

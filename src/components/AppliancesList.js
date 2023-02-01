@@ -1,6 +1,7 @@
 class AppliancesList {
   constructor() {
     this.appliances = appliances;
+    this.isListDisplayed = false;
   }
 
   addAppliance(appliance) {
@@ -14,29 +15,50 @@ class AppliancesList {
   }
 
   updateAppliances() {
-    this.appliances = appliancesList;
     const filteredRecipes = filterRecipes();
-    const filteredAppliances = [];
+    this.appliances = appliancesList;
+    const filteredAppliances = new Set();
     filteredRecipes.forEach((recipe) => {
-      filteredAppliances.push(recipe.appliance.toLowerCase());
+      filteredAppliances.add(recipe.appliance.toLowerCase());
     });
+
     tagsList.tags.forEach((tag) => {
       if (tag.type === 'appliance') {
-        filteredAppliances.forEach((appliance, index) => {
-          if (appliance === tag.name) {
-            filteredAppliances.splice(index, 1);
-          }
-        });
+        filteredAppliances.delete(tag.name);
       }
     });
-    this.appliances = filteredAppliances;
+    this.appliances = [...filteredAppliances];
 
     this.render();
   }
 
   render() {
-    const appliancesList = document.querySelector('.appliances-list');
+    const appliancesList = document.querySelector('.appliances_list');
+    const appliancesDropwdown = document.querySelector('.appliances_dropdown');
+    const appliancesListTitle = document.querySelector(
+      '.appliances_list_title'
+    );
+    const appliancesSearchBar = document.querySelector('.appliances_search');
+    
+    appliancesDropwdown.removeEventListener('click', () => {});
+    appliancesDropwdown.addEventListener('click', () => {
+      if (!this.isListDisplayed) {
+        appliancesDropwdown.style.transform = 'rotate(180deg)';
+        appliancesList.style.display = 'grid';
+        appliancesListTitle.style.display = 'none';
+        appliancesSearchBar.style.display = 'block';
+        this.isListDisplayed = true;
+      } else {
+        appliancesDropwdown.style.transform = 'rotate(0deg)';
+        appliancesList.style.display = 'none';
+        appliancesListTitle.style.display = 'block';
+        appliancesSearchBar.style.display = 'none';
+        this.isListDisplayed = false;
+      }
+    });
+
     removeChildren(appliancesList);
+
     this.appliances.forEach((appliance) => {
       const applianceItem = document.createElement('p');
       applianceItem.addEventListener('click', () => {

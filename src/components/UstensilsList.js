@@ -1,6 +1,7 @@
 class UstensilsList {
   constructor() {
     this.ustensils = ustensils;
+    this.isListDisplayed = false;
   }
 
   addUstensil(ustensil) {
@@ -16,30 +17,48 @@ class UstensilsList {
   updateUstensils() {
     this.ustensils = ustensilsList;
     const filteredRecipes = filterRecipes();
-    const filteredUstensils = [];
+    const filteredUstensils = new Set(); 
     filteredRecipes.forEach((recipe) => {
       recipe.ustensils.forEach((ustensil) => {
-        filteredUstensils.push(ustensil.toLowerCase());
+        filteredUstensils.add(ustensil.toLowerCase());
       });
     });
     tagsList.tags.forEach((tag) => {
       if (tag.type === 'ustensil') {
-        filteredUstensils.forEach((ustensil, index) => {
-          if (ustensil === tag.name) {
-            filteredUstensils.splice(index, 1);
-          }
-        });
+        filteredUstensils.delete(tag.name); 
       }
     });
-
-    this.ustensils = filteredUstensils;
+    this.ustensils = [...filteredUstensils];
 
     this.render();
   }
 
   render() {
-    const ustensilsList = document.querySelector('.ustensils-list');
+    const ustensilsList = document.querySelector('.ustensils_list');
+    const ustensilsDropwdown = document.querySelector('.ustensils_dropdown');
+    const ustensilsListTitle = document.querySelector('.ustensils_list_title');
+    const ustensilsSearchBar = document.querySelector('.ustensils_search');
+
+    ustensilsDropwdown.removeEventListener('click', () => {});
+
+    ustensilsDropwdown.addEventListener('click', () => {
+      if (!this.isListDisplayed) {
+        ustensilsDropwdown.style.transform = 'rotate(180deg)';
+        ustensilsList.style.display = 'grid';
+        ustensilsListTitle.style.display = 'none';
+        ustensilsSearchBar.style.display = 'block';
+        this.isListDisplayed = true;
+      } else {
+        ustensilsDropwdown.style.transform = 'rotate(0deg)';
+        ustensilsList.style.display = 'none';
+        ustensilsListTitle.style.display = 'block';
+        ustensilsSearchBar.style.display = 'none';
+        this.isListDisplayed = false;
+      }
+    });
+
     removeChildren(ustensilsList);
+
     this.ustensils.forEach((ustensil) => {
       const ustensilItem = document.createElement('p');
       ustensilItem.addEventListener('click', () => {
@@ -50,7 +69,6 @@ class UstensilsList {
         appliancesList.updateAppliances();
         this.removeUstensil(ustensil);
       });
-      ustensilItem.classList.add('ustensil-item');
       ustensilItem.textContent = ustensil;
       ustensilsList.appendChild(ustensilItem);
     });
