@@ -34,13 +34,13 @@ function removeChildren(element) {
 
 function filterRecipes() {
   const ingredientsFilter = tagsList.tags.filter(
-    (tag) => tag.type === 'ingredient'
+    (tag) => tag.type === "ingredients",
   );
   const appliancesFilter = tagsList.tags.filter(
-    (tag) => tag.type === 'appliance'
+    (tag) => tag.type === "appliance",
   );
   const ustensilsFilter = tagsList.tags.filter(
-    (tag) => tag.type === 'ustensil'
+    (tag) => tag.type === "ustensils",
   );
 
   const filteredRecipes = recipes.filter((recipe) => {
@@ -50,18 +50,20 @@ function filterRecipes() {
     if (ingredientsFilter.length > 0) {
       ingredientMatch = ingredientsFilter.every((tag) =>
         recipe.ingredients.some(
-          (ingredient) => ingredient.ingredient.toLowerCase() === tag.name
-        )
+          (ingredient) => ingredient.ingredient.toLowerCase() === tag.name,
+        ),
       );
     }
     if (appliancesFilter.length > 0) {
       applianceMatch = appliancesFilter.every((tag) =>
-        recipe.appliance.toLowerCase().includes(tag.name)
+        recipe.appliance.toLowerCase().includes(tag.name),
       );
     }
     if (ustensilsFilter.length > 0) {
       ustensilMatch = ustensilsFilter.every((tag) =>
-        recipe.ustensils.some((ustensil) => ustensil.toLowerCase() === tag.name)
+        recipe.ustensils.some(
+          (ustensil) => ustensil.toLowerCase() === tag.name,
+        ),
       );
     }
     return ingredientMatch && applianceMatch && ustensilMatch;

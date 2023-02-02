@@ -14,31 +14,35 @@ class TagsList {
   }
 
   render() {
-    const tagsList = document.querySelector('.tags_list');
+    const tagsList = document.querySelector(".tags_list");
     removeChildren(tagsList);
     this.tags.forEach((tag) => {
-      const tagContainer = document.createElement('div');
-      const tagItem = document.createElement('p');
-      const tagCloseIcon = document.createElement('img');
-      tagCloseIcon.setAttribute('src', './assets/close.png');
-      tagContainer.classList.add('tag_container');
+      const tagContainer = document.createElement("div");
+      const tagItem = document.createElement("p");
+      const tagCloseIcon = document.createElement("img");
+      tagCloseIcon.setAttribute("src", "./assets/close.png");
+      tagContainer.classList.add("tag_container");
 
-      tagCloseIcon.addEventListener('click', () => {
+      tagCloseIcon.addEventListener("click", () => {
         this.removeTag(tag.name);
-        recipesList.updateRecipes();
-        ingredientsList.updateIngredients();
-        appliancesList.updateAppliances();
-        ustensilsList.updateUstensils();
+        if (this.tags.length === 0) {
+          recipeList.firstRender();
+        } else {
+          recipeList.updateRecipes();
+        }
+        displayedLists.forEach((list) => {
+          list.updateList();
+        });
       });
 
-      if (tag.type === 'ingredient') {
-        tagContainer.classList.add('tag_blue');
+      if (tag.type === "ingredients") {
+        tagContainer.classList.add("tag_blue");
       }
-      if (tag.type === 'appliance') {
-        tagContainer.classList.add('tag_orange');
+      if (tag.type === "appliance") {
+        tagContainer.classList.add("tag_orange");
       }
-      if (tag.type === 'ustensil') {
-        tagContainer.classList.add('tag_green');
+      if (tag.type === "ustensils") {
+        tagContainer.classList.add("tag_green");
       }
       tagItem.textContent = tag.name;
       tagContainer.appendChild(tagItem);

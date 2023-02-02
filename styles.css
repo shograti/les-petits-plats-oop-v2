@@ -128,7 +128,7 @@ header h1 {
     padding: 1em;
 }
 
-.appliances_list_container {
+.appliance_list_container {
     background-color: var(--orange);
     padding: 1em;
 }
@@ -140,7 +140,7 @@ header h1 {
 
 .ingredients_list_header,
 .ustensils_list_header,
-.appliances_list_header {
+.appliance_list_header {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -151,7 +151,7 @@ header h1 {
 
 .ingredients_list_header h2,
 .ustensils_list_header h2,
-.appliances_list_header h2 {
+.appliance_list_header h2 {
     color: #FFF;
     font-size: 18px;
     font-weight: 700;
@@ -159,12 +159,12 @@ header h1 {
 
 .ingredients_dropdown,
 .ustensils_dropdown,
-.appliances_dropdown {
+.appliance_dropdown {
     cursor: pointer;
 }
 
 .ingredients_list,
-.appliances_list,
+.appliance_list,
 .ustensils_list {
     grid-template-columns: repeat(3, minmax(200px, 1fr));
     display: none;
@@ -173,7 +173,7 @@ header h1 {
 }
 
 .ingredients_list p,
-.appliances_list p,
+.appliance_list p,
 .ustensils_list p {
     color: #FFF;
     text-transform: capitalize;
@@ -182,7 +182,7 @@ header h1 {
 }
 
 .ingredients_search,
-.appliances_search,
+.appliance_search,
 .ustensils_search {
     display: none;
     background-color: transparent;

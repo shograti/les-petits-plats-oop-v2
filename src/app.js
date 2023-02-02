@@ -1,15 +1,21 @@
-const ingredients = getIngredients();
-const ustensils = getUstensils();
-const appliances = getAppliances();
+const lists = [
+  { type: "ingredients", list: getIngredients() },
+  { type: "ustensils", list: getUstensils() },
+  { type: "appliance", list: getAppliances() },
+];
 
-const ingredientsList = new IngredientsList(ingredients);
-const appliancesList = new AppliancesList(appliances);
-const ustensilsList = new UstensilsList(ustensils);
-const recipesList = new RecipesList(recipes);
+const displayedLists = [];
+
+lists.forEach((list) => {
+  const comboBox = new ComboBox(list.type, list.list);
+  comboBox.render();
+  displayedLists.push(comboBox);
+});
+
+console.log(displayedLists);
+
+const recipeList = new RecipesList(recipes);
+
+recipeList.firstRender();
+
 const tagsList = new TagsList();
-
-recipesList.firstRender();
-ingredientsList.render();
-ustensilsList.render();
-appliancesList.render();
-tagsList.render();
