@@ -25,11 +25,7 @@ class TagsList {
 
       tagCloseIcon.addEventListener("click", () => {
         this.removeTag(tag.name);
-        if (this.tags.length === 0) {
-          recipeList.firstRender();
-        } else {
-          recipeList.updateRecipes();
-        }
+        recipeList.updateRecipes();
         displayedLists.forEach((list) => {
           list.updateList();
         });

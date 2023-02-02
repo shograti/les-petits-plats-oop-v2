@@ -10,7 +10,7 @@ class RecipesList {
     const filteredRecipes = filterRecipes();
     if (filteredRecipes.length === 0) {
       this.recipes = recipes;
-      this.render();
+      this.firstRender();
     } else {
       this.recipes = filterRecipes();
       this.render();
@@ -18,8 +18,6 @@ class RecipesList {
   }
 
   createCard(recipe) {
-    const recipeItem = document.createElement("div");
-    recipeItem.classList.add("recipe-item");
     const card = document.createElement("article");
     const imagePlaceholder = document.createElement("div");
     const cardBody = document.createElement("div");
@@ -34,7 +32,7 @@ class RecipesList {
     cardTitle.textContent = recipe.name;
     cardTimeIcon.setAttribute("src", "assets/clock.png");
     cardTimeText.textContent = `${recipe.time} min`;
-    cardDescription.textContent = recipe.description;
+    cardDescription.textContent = recipe.description.slice(0, 130) + "...";
 
     recipe.ingredients.forEach((ingredient) => {
       const ingredientContainer = document.createElement("p");
@@ -42,10 +40,11 @@ class RecipesList {
       ingredientName.textContent = ingredient.ingredient;
       ingredientContainer.appendChild(ingredientName);
       ingredientContainer.append(
-        ` : ${ingredient.quantity ? ingredient.quantity : ""} ${
+        `${ingredient.quantity ? " : " + ingredient.quantity : ""} ${
           ingredient.unit ? ingredient.unit : ""
         }`,
       );
+      ingredientName.classList.add("ingredient_name");
       cardIngredients.appendChild(ingredientContainer);
     });
 
@@ -58,11 +57,19 @@ class RecipesList {
     cardBody.appendChild(cardIngredients);
     cardBody.appendChild(cardDescription);
     card.appendChild(cardBody);
+
+    imagePlaceholder.classList.add("image_placeholder");
+    cardHeadRow.classList.add("card_head_row");
+    cardTimeContainer.classList.add("card_time_container");
+    cardBody.classList.add("card_body");
+    cardIngredients.classList.add("card_ingredients");
+    cardDescription.classList.add("card_description");
+
     return card;
   }
 
   firstRender() {
-    const recipesList = document.querySelector(".recipes-list");
+    const recipesList = document.querySelector(".recipes_list");
     removeChildren(recipesList);
     this.recipes.forEach((recipe, index) => {
       if (index < 6) {
@@ -73,7 +80,7 @@ class RecipesList {
   }
 
   render() {
-    const recipesList = document.querySelector(".recipes-list");
+    const recipesList = document.querySelector(".recipes_list");
     removeChildren(recipesList);
     this.recipes.forEach((recipe) => {
       const card = this.createCard(recipe);
