@@ -73,20 +73,22 @@ function filterRecipes() {
 
 function filterRecipesBySearch(searchTerm) {
   const filteredRecipes = new Set();
-  recipes.forEach((recipe) => {
+  for (let i = 0; i < recipes.length; i++) {
+    const recipe = recipes[i];
+
     if (recipe.name.includes(searchTerm)) {
       filteredRecipes.add(recipe);
     }
     if (recipe.description.includes(searchTerm)) {
       filteredRecipes.add(recipe);
     }
-    recipe.ingredients.forEach((ingredient) => {
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredient = recipe.ingredients[j];
+      console.log(recipe);
       if (ingredient.ingredient.includes(searchTerm)) {
         filteredRecipes.add(recipe);
       }
-    });
-  });
-
-  console.log(filteredRecipes);
+    }
+  }
   return filteredRecipes;
 }
