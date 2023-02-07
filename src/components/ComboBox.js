@@ -7,6 +7,22 @@ class ComboBox {
     this.comboBoxDropDown = document.querySelector(`.${this.type}_dropdown`);
     this.comboBoxTitle = document.querySelector(`.${this.type}_list_title`);
     this.comboBoxSearchBar = document.querySelector(`.${this.type}_search`);
+    this.comboBoxDropDown.addEventListener("click", (e) => {
+      console.log(e);
+      if (!this.isListDisplayed) {
+        this.comboBoxDropDown.style.transform = "rotate(180deg)";
+        this.comboBox.style.display = "grid";
+        this.comboBoxTitle.style.display = "none";
+        this.comboBoxSearchBar.style.display = "block";
+        this.isListDisplayed = true;
+      } else {
+        this.comboBoxDropDown.style.transform = "rotate(0deg)";
+        this.comboBox.style.display = "none";
+        this.comboBoxTitle.style.display = "block";
+        this.comboBoxSearchBar.style.display = "none";
+        this.isListDisplayed = false;
+      }
+    });
   }
 
   addItem(item) {
@@ -20,7 +36,6 @@ class ComboBox {
   }
 
   updateList() {
-    console.log(tagsList.tags);
     const filteredRecipes = filterRecipes();
     const filteredList = new Set();
     filteredRecipes.forEach((recipe) => {
@@ -78,25 +93,6 @@ class ComboBox {
             this.comboBox.appendChild(listItem);
           }
         });
-      }
-    });
-    displayedLists.forEach((list) => {
-      list.comboBoxDropDown.removeEventListener("click", () => {});
-    });
-
-    this.comboBoxDropDown.addEventListener("click", () => {
-      if (!this.isListDisplayed) {
-        this.comboBoxDropDown.style.transform = "rotate(180deg)";
-        this.comboBox.style.display = "grid";
-        this.comboBoxTitle.style.display = "none";
-        this.comboBoxSearchBar.style.display = "block";
-        this.isListDisplayed = true;
-      } else {
-        this.comboBoxDropDown.style.transform = "rotate(0deg)";
-        this.comboBox.style.display = "none";
-        this.comboBoxTitle.style.display = "block";
-        this.comboBoxSearchBar.style.display = "none";
-        this.isListDisplayed = false;
       }
     });
 
