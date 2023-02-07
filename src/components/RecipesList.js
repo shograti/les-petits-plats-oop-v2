@@ -20,7 +20,7 @@ class RecipesList {
 
   updateRecipesBySearch(searchTerms) {
     const filteredRecipes = filterRecipesBySearch(searchTerms);
-    console.log(filteredRecipes);
+
     this.recipes = [...filteredRecipes];
     this.render();
   }

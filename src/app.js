@@ -12,7 +12,7 @@ lists.forEach((list) => {
   displayedLists.push(comboBox);
 });
 
-console.log(displayedLists);
+
 
 const recipeList = new RecipesList(recipes);
 
