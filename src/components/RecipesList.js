@@ -2,6 +2,7 @@ class RecipesList {
   constructor(recipes) {
     this.recipes = recipes;
   }
+
   addRecipe(recipe) {
     this.recipes.push(recipe);
   }
@@ -15,6 +16,12 @@ class RecipesList {
       this.recipes = filterRecipes();
       this.render();
     }
+  }
+
+  updateRecipesBySearch(searchTerms) {
+    const filteredRecipes = filterRecipesBySearch(searchTerms);
+    this.recipes = filteredRecipes;
+    this.render();
   }
 
   createCard(recipe) {
@@ -71,6 +78,7 @@ class RecipesList {
   firstRender() {
     const recipesList = document.querySelector(".recipes_list");
     removeChildren(recipesList);
+    this.recipes = recipes;
     this.recipes.forEach((recipe, index) => {
       if (index < 6) {
         const card = this.createCard(recipe);
@@ -82,9 +90,15 @@ class RecipesList {
   render() {
     const recipesList = document.querySelector(".recipes_list");
     removeChildren(recipesList);
-    this.recipes.forEach((recipe) => {
-      const card = this.createCard(recipe);
-      recipesList.appendChild(card);
-    });
+    if (this.recipes.length > 0) {
+      this.recipes.forEach((recipe) => {
+        const card = this.createCard(recipe);
+        recipesList.appendChild(card);
+      });
+    } else {
+      const p = document.createElement("p");
+      p.textContent = "Aucune recette trouvée";
+      recipesList.appendChild(p);
+    }
   }
 }

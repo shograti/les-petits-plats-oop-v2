@@ -70,3 +70,23 @@ function filterRecipes() {
   });
   return filteredRecipes;
 }
+
+function filterRecipesBySearch(searchTerm) {
+  const filteredRecipes = new Set();
+  recipes.forEach((recipe) => {
+    if (recipe.name.includes(searchTerm)) {
+      filteredRecipes.add(recipe);
+    }
+    if (recipe.description.includes(searchTerm)) {
+      filteredRecipes.add(recipe);
+    }
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.ingredient.includes(searchTerm)) {
+        filteredRecipes.add(recipe);
+      }
+    });
+  });
+
+  console.log(filteredRecipes);
+  return filteredRecipes;
+}

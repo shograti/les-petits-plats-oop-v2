@@ -19,3 +19,5 @@ const recipeList = new RecipesList(recipes);
 recipeList.firstRender();
 
 const tagsList = new TagsList();
+
+const searchBar = new SearchBar();
