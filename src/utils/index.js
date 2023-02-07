@@ -87,6 +87,5 @@ function filterRecipesBySearch(searchTerm) {
     });
   });
 
-  console.log(filteredRecipes);
   return filteredRecipes;
 }

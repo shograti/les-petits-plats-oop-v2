@@ -8,7 +8,6 @@ class ComboBox {
     this.comboBoxTitle = document.querySelector(`.${this.type}_list_title`);
     this.comboBoxSearchBar = document.querySelector(`.${this.type}_search`);
     this.comboBoxDropDown.addEventListener("click", (e) => {
-      console.log(e);
       if (!this.isListDisplayed) {
         this.comboBoxDropDown.style.transform = "rotate(180deg)";
         this.comboBox.style.display = "grid";
